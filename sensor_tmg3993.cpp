@@ -6,6 +6,7 @@ data_tmg3993_t tmg3993_data;
 
 bool sensor_tmg3993_init() {
   wire1.begin(I2C_SDA, I2C_SCL); // I2C Bus 1 for I2C devices, especially TMG3993
+  wire1.setClock(500000);
 
   if (tmg3993.initialize() == false) {
     Serial.println("[TMG3993] Device not found. Check I2C wiring.");
@@ -14,6 +15,7 @@ bool sensor_tmg3993_init() {
 
   tmg3993.setADCIntegrationTime(0xdb);
   tmg3993.setupRecommendedConfigForProximity();
+  // tmg3993.setProximityPulseCntLen(16, 1);
   tmg3993.enableEngines(ENABLE_PON | ENABLE_PEN | ENABLE_PIEN | ENABLE_AEN | ENABLE_AIEN);
 
   Serial.println("[TMG3993] Device configured.");

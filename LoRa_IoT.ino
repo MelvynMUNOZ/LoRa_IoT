@@ -20,7 +20,8 @@ void loop() {
 
   oled_display.clear();
   oled_display.drawString(0, 0, "Hello LoRa32 V3 !");
-  oled_display_print_proximity(tmg3993_data.prox);
+  oled_display_print_proximity();
+  oled_display_print_light();
   oled_display.display();
 
   delay(200);
