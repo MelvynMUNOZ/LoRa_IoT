@@ -1,13 +1,12 @@
-#include <Wire.h>
-#include "Seeed_TMG3993.h"
 #include "sensor_tmg3993.h"
 
-TMG3993 tmg3993;
+TwoWire wire1 = TwoWire(1);
+TMG3993 tmg3993(wire1);
 data_tmg3993_t tmg3993_data;
 
 bool sensor_tmg3993_init() {
-  Wire.begin(I2C_SDA, I2C_SCL);
-    
+  wire1.begin(I2C_SDA, I2C_SCL); // I2C Bus 1 for I2C devices, especially TMG3993
+
   if (tmg3993.initialize() == false) {
     Serial.println("[TMG3993] Device not found. Check I2C wiring.");
     return false;
@@ -17,8 +16,7 @@ bool sensor_tmg3993_init() {
   tmg3993.setupRecommendedConfigForProximity();
   tmg3993.enableEngines(ENABLE_PON | ENABLE_PEN | ENABLE_PIEN | ENABLE_AEN | ENABLE_AIEN);
 
-  Serial.println("[TMG3993] Device configured !");
-  
+  Serial.println("[TMG3993] Device configured.");
   return true;
 }
 
