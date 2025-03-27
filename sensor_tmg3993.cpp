@@ -1,3 +1,4 @@
+#include <Wire.h>
 #include "Seeed_TMG3993.h"
 #include "sensor_tmg3993.h"
 

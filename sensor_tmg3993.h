@@ -2,7 +2,6 @@
 #define LORA_IOT_SENSOR_TMG3993_H
 
 #include <Arduino.h>
-#include <Wire.h>
 #include <cstdint>
 
 #define I2C_SDA 41
