@@ -3,7 +3,7 @@
 
 #include <Adafruit_Sensor.h>
 
-#define samp_siz 3 
+#define samp_siz 4 
 #define rise_threshold 3
 
 struct Sensor_HB_Data{

@@ -13,7 +13,12 @@ extern SSD1306Wire oled_display;
 
 bool oled_display_init();
 
-void oled_display_print_proximity();
-void oled_display_print_light();
+void oled_display_print_proximity(uint8_t line_number);
+void oled_display_print_light(uint8_t line_number);
+void oled_display_print_temperature_humidity(uint8_t line_number);
+void oled_display_print_pressure(uint8_t line_number);
+void oled_display_print_gas_resistance(uint8_t line_number);
+void oled_display_print_altitude(uint8_t line_number);
+void oled_display_print_hb(uint8_t line_number);
 
 #endif // LORA_IOT_OLED_DISPLAY_H

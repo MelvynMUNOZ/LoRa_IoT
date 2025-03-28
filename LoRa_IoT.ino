@@ -2,13 +2,15 @@
 #include "sensor_tmg3993.h"
 #include "sensor_bme.h"
 #include "sensor_hb.h"
+#include "led.h"
 
 unsigned long previousTempMillis = 0;
-const long tempInterval = 5000; // Intervalle de récupération de température (5s)
+const long tempInterval = 1000; // Intervalle de récupération des capteurs (en millisecondes)
 
 void setup() {
   Serial.begin(115200);
 
+  led_init();
   oled_display_init();
   Sensor_HB_init();
 
@@ -25,7 +27,7 @@ void loop() {
   
   unsigned long currentMillis = millis();
 
-  // Lire la température toutes les 500ms
+  // Lire les capteurs toutes les 1s
   if (currentMillis - previousTempMillis >= tempInterval) {
     previousTempMillis = currentMillis;
     float temp = Sensor_BME_get_temperature();
@@ -34,19 +36,20 @@ void loop() {
     uint32_t gas = Sensor_BME_get_gas();
     float altitude = Sensor_BME_get_altitude();
 
+    sensor_tmg3993_poll_light_color();
+    sensor_tmg3993_poll_proximity();
+
+    oled_display.clear();
+    oled_display.drawString(0, 0, "Holà amigo !");
+    oled_display_print_light(1);
+    oled_display_print_temperature_humidity(2);
+    oled_display_print_pressure(3);
+    oled_display_print_gas_resistance(4);
+    oled_display.display();
+
   }
 
-  //Recupere en boucle les bpm (ne les affiches que si il a 3 battements à la suite)
+  //Recupere en boucle les bpm (ne les affiches que si il a plusieurs battements à la suite)
   Sensor_HB_get_value();
-
-
-  sensor_tmg3993_poll_light_color();
-  sensor_tmg3993_poll_proximity();
-
-  oled_display.clear();
-  oled_display.drawString(0, 0, "Hello LoRa32 V3 !");
-  oled_display_print_proximity();
-  oled_display_print_light();
-  oled_display.display();
 
 }

@@ -26,9 +26,9 @@ float Sensor_BME_get_temperature(){
     return 0;
   } else {
     float temperature = bme.temperature;
-    Serial.print("Température: ");
-    Serial.print(temperature);
-    Serial.println(" °C");
+    // Serial.print("Température: ");
+    // Serial.print(temperature);
+    // Serial.println(" °C");
     return temperature;
   }
 }
@@ -39,9 +39,9 @@ float Sensor_BME_get_pressure(){
     return 0;
   } else {
     float pressure = bme.pressure / 100.0; //ATTENTION hPa
-    Serial.print("Pressure = ");
-    Serial.print(pressure);
-    Serial.println(" hPa");
+    // Serial.print("Pressure = ");
+    // Serial.print(pressure);
+    // Serial.println(" hPa");
     return pressure;
   }
 }
@@ -52,22 +52,22 @@ float Sensor_BME_get_humidity(){
     return 0;
   } else {
     float humidity = bme.humidity; //%
-    Serial.print("Humidity = ");
-    Serial.print(humidity);
-    Serial.println(" %");
+    // Serial.print("Humidity = ");
+    // Serial.print(humidity);
+    // Serial.println(" %");
     return humidity;
   }
 }
 
-uint32_t Sensor_BME_get_gas(){
+float Sensor_BME_get_gas(){
   if (!bme.performReading()) {
     Serial.println("Erreur lecture BME680 : gaz");
     return 0;
   } else {
-    uint32_t gas_resistance = bme.gas_resistance  / 1000.0; //ATTENTION : KOhms
-    Serial.print("Gas = ");
-    Serial.print(gas_resistance);
-    Serial.println(" KOhms");
+    float gas_resistance = bme.gas_resistance  / 1000.0; //ATTENTION : KOhms
+    // Serial.print("Gas = ");
+    // Serial.print(gas_resistance);
+    // Serial.println(" KOhms");
     return gas_resistance;
   }
 }
@@ -78,9 +78,9 @@ float Sensor_BME_get_altitude(){
     return 0;
   } else {
     float altitude = bme.readAltitude(SEALEVELPRESSURE_HPA); //m
-    Serial.print("Approx. Altitude = ");
-    Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
-    Serial.println(" m");
+    // Serial.print("Approx. Altitude = ");
+    // Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
+    // Serial.println(" m");
     return altitude;
   }
 }

@@ -17,7 +17,7 @@ bool Sensor_BME_init();
 float Sensor_BME_get_temperature();
 float Sensor_BME_get_pressure();
 float Sensor_BME_get_humidity();
-uint32_t Sensor_BME_get_gas();
+float Sensor_BME_get_gas();
 float Sensor_BME_get_altitude();
 
 #endif //SENSOR_BME_H
