@@ -1,4 +1,5 @@
 #include "oled_display.h"
+#include "web_server.h"
 #include "sensor_tmg3993.h"
 #include "sensor_bme.h"
 #include "sensor_hb.h"
@@ -10,10 +11,14 @@ void setup() {
   Serial.begin(115200);
 
   oled_display_init();
-  Sensor_HB_init();
+  
+  if (web_server_init()) {
+    web_server_start();
+  }
 
   bool bme_ready = Sensor_BME_init();
   bool tmg3993_ready = sensor_tmg3993_init();
+  Sensor_HB_init();
 
   if (bme_ready == false || tmg3993_ready == false) {
     Serial.println("Failed to initialize devices. Waiting...");
@@ -39,14 +44,15 @@ void loop() {
   //Recupere en boucle les bpm (ne les affiches que si il a 3 battements à la suite)
   Sensor_HB_get_value();
 
-
   sensor_tmg3993_poll_light_color();
   sensor_tmg3993_poll_proximity();
 
   oled_display.clear();
-  oled_display.drawString(0, 0, "Hello LoRa32 V3 !");
+
+  oled_display_print_web_server_address();
   oled_display_print_proximity();
   oled_display_print_light();
+
   oled_display.display();
 
 }
