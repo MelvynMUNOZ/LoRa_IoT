@@ -55,11 +55,11 @@ void Sensor_BME_get_humidity(){
   }
 }
 
-void Sensor_BME_get_gas(){
+void Sensor_BME_get_air_quality(){
   if (!bme.performReading()) {
     Serial.println("Erreur lecture BME680 : gaz");
   } else {
-    BME_data.gas = bme.gas_resistance  / 1000.0; //ATTENTION : KOhms
+    BME_data.air_quality = bme.gas_resistance  / 1000.0; //ATTENTION : KOhms
     // Serial.print("Gas = ");
     // Serial.print(gas_resistance);
     // Serial.println(" KOhms");

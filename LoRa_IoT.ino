@@ -38,7 +38,7 @@ void loop() {
     Sensor_BME_get_temperature();
     Sensor_BME_get_pressure();
     Sensor_BME_get_humidity();
-    Sensor_BME_get_gas();
+    Sensor_BME_get_air_quality();
     Sensor_BME_get_altitude();
 
     sensor_tmg3993_poll_light_color();
@@ -49,7 +49,7 @@ void loop() {
     oled_display_print_light(1);
     oled_display_print_temperature_humidity(2);
     oled_display_print_pressure(3);
-    oled_display_print_gas_resistance(4);
+    oled_display_print_air_quality(4);
     oled_display.display();
   }
 

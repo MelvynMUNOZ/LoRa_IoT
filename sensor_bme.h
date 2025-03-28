@@ -16,7 +16,7 @@ struct Sensor_BME_data{
   float temperature;
   float pressure;
   float humidity;
-  float gas;
+  float air_quality;
   float altitude;
 };
 
@@ -27,7 +27,7 @@ bool Sensor_BME_init();
 void Sensor_BME_get_temperature();
 void Sensor_BME_get_pressure();
 void Sensor_BME_get_humidity();
-void Sensor_BME_get_gas();
+void Sensor_BME_get_air_quality();
 void Sensor_BME_get_altitude();
 
 #endif //SENSOR_BME_H
