@@ -1,5 +1,7 @@
 # LoRa_IoT
 
+GPIO_LED = 6
+
 HB_PIN = 7
 
 I2C_SDA = 41
@@ -9,4 +11,3 @@ BME_SCK = 35
 BME_MOSI = 34
 BME_MISO = 37
 BME_CS = 33
-
