@@ -30,7 +30,8 @@
 </head>
 <body>
   <header>
-    <h2>ESP32 LoRa32 V3 (Sensors + Server)</h2>
+    <h2>ESP32 LoRa32 V3</h2>
+    <p><strong>Last updated:<br/><span id="timestamp">%TIMESTAMP%</span></strong></p>
   </header>
 <main>
   <p>
@@ -50,9 +51,10 @@
 </main>
 
 <script>
-setInterval(updateValues, 10000, "temperature");
-setInterval(updateValues, 10000, "humidity");
-setInterval(updateValues, 10000, "pressure");
+setInterval(updateValues, 5000, "timestamp");
+setInterval(updateValues, 5000, "temperature");
+setInterval(updateValues, 5000, "humidity");
+setInterval(updateValues, 5000, "pressure");
 
 function updateValues(value) {
   var xhttp = new XMLHttpRequest();

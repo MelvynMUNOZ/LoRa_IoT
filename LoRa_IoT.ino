@@ -34,6 +34,8 @@ void loop() {
 
   // Lire les capteurs toutes les 1s
   if (currentMillis - previousTempMillis >= tempInterval) {
+    web_server_get_timestamp();
+
     previousTempMillis = currentMillis;
     Sensor_BME_get_temperature();
     Sensor_BME_get_pressure();

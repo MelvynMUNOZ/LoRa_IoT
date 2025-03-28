@@ -6,8 +6,13 @@
 const char *wifi_ssid = "Vinh Diesel sans diesel";
 const char *wifi_passwd = "..........";
 
-// Web server on port 80
 AsyncWebServer server(80);
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP);
+String formattedDate;
+String day;
+String hour;
+String timestamp;
 
 bool web_server_init() {
   web_server_connect_wifi();
@@ -20,6 +25,9 @@ bool web_server_init() {
   // Setup routes
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(LittleFS, "/index.html", String(), false, web_server_process_data);
+  });
+  server.on("/timestamp", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send_P(200, "text/plain", timestamp.c_str());
   });
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/plain", String(BME_data.temperature).c_str());
@@ -66,10 +74,35 @@ bool web_server_connect_wifi() {
 
 void web_server_start() {
   server.begin();
+  timeClient.begin();
+  timeClient.setTimeOffset(3600);
+}
+
+void web_server_get_timestamp() {
+    while(!timeClient.update()) {
+    timeClient.forceUpdate();
+  }
+  // The formattedDate comes with the following format:
+  // 2018-05-28T16:00:13Z
+  // We need to extract date and time
+  formattedDate = timeClient.getFormattedDate();
+  Serial.println(formattedDate);
+
+  // Extract date
+  int splitT = formattedDate.indexOf("T");
+  day = formattedDate.substring(0, splitT);
+  Serial.println(day);
+  // Extract time
+  hour = formattedDate.substring(splitT+1, formattedDate.length()-1);
+  Serial.println(hour);
+  timestamp = day + " " + hour;
 }
 
 String web_server_process_data(const String& var) {
-  if (var == "TEMPERATURE") {
+  if (var == "TIMESTAMP") {
+    return timestamp;
+  }
+  else if (var == "TEMPERATURE") {
     return String(BME_data.temperature);
   }
   else if (var == "HUMIDITY") {
