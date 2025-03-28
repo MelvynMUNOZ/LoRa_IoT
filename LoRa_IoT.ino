@@ -35,11 +35,11 @@ void loop() {
   // Lire les capteurs toutes les 1s
   if (currentMillis - previousTempMillis >= tempInterval) {
     previousTempMillis = currentMillis;
-    float temp = Sensor_BME_get_temperature();
-    float pressure = Sensor_BME_get_pressure();
-    float humidity = Sensor_BME_get_humidity();
-    float gas = Sensor_BME_get_gas();
-    float altitude = Sensor_BME_get_altitude();
+    Sensor_BME_get_temperature();
+    Sensor_BME_get_pressure();
+    Sensor_BME_get_humidity();
+    Sensor_BME_get_gas();
+    Sensor_BME_get_altitude();
 
     sensor_tmg3993_poll_light_color();
     sensor_tmg3993_poll_proximity();

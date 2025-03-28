@@ -14,7 +14,7 @@ struct Sensor_HB_Data{
   float second;
   float third;
   float before;
-  float print_value;
+  float bpm;
 	bool rising; 
 	int rise_count; 
 	long int last_beat;

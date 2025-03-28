@@ -2,6 +2,8 @@
 
 #include "sensor_bme.h"
 
+Sensor_BME_data BME_data;
+
 Adafruit_BME680 bme(BME_CS, BME_MOSI, BME_MISO, BME_SCK);
 
 bool Sensor_BME_init(){
@@ -20,67 +22,57 @@ bool Sensor_BME_init(){
   return true;
 }
 
-float Sensor_BME_get_temperature(){
+void Sensor_BME_get_temperature(){
   if (!bme.performReading()) {
     Serial.println("Erreur lecture BME680 : temperature");
-    return 0;
   } else {
-    float temperature = bme.temperature;
+    BME_data.temperature = bme.temperature;
     // Serial.print("Température: ");
     // Serial.print(temperature);
     // Serial.println(" °C");
-    return temperature;
   }
 }
 
-float Sensor_BME_get_pressure(){
+void Sensor_BME_get_pressure(){
   if (!bme.performReading()) {
     Serial.println("Erreur lecture BME680 : pressure");
-    return 0;
   } else {
-    float pressure = bme.pressure / 100.0; //ATTENTION hPa
+    BME_data.pressure = bme.pressure / 100.0; //ATTENTION hPa
     // Serial.print("Pressure = ");
     // Serial.print(pressure);
     // Serial.println(" hPa");
-    return pressure;
   }
 }
 
-float Sensor_BME_get_humidity(){
+void Sensor_BME_get_humidity(){
   if (!bme.performReading()) {
     Serial.println("Erreur lecture BME680 : humidity");
-    return 0;
   } else {
-    float humidity = bme.humidity; //%
+    BME_data.humidity = bme.humidity; //%
     // Serial.print("Humidity = ");
     // Serial.print(humidity);
     // Serial.println(" %");
-    return humidity;
   }
 }
 
-float Sensor_BME_get_gas(){
+void Sensor_BME_get_gas(){
   if (!bme.performReading()) {
     Serial.println("Erreur lecture BME680 : gaz");
-    return 0;
   } else {
-    float gas_resistance = bme.gas_resistance  / 1000.0; //ATTENTION : KOhms
+    BME_data.gas = bme.gas_resistance  / 1000.0; //ATTENTION : KOhms
     // Serial.print("Gas = ");
     // Serial.print(gas_resistance);
     // Serial.println(" KOhms");
-    return gas_resistance;
   }
 }
 
-float Sensor_BME_get_altitude(){
+void Sensor_BME_get_altitude(){
   if (!bme.performReading()) {
     Serial.println("Erreur lecture BME680 : altitude");
-    return 0;
   } else {
-    float altitude = bme.readAltitude(SEALEVELPRESSURE_HPA); //m
+    BME_data.altitude = bme.readAltitude(SEALEVELPRESSURE_HPA); //m
     // Serial.print("Approx. Altitude = ");
     // Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
     // Serial.println(" m");
-    return altitude;
   }
 }

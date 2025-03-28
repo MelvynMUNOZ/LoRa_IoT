@@ -20,9 +20,7 @@ void oled_display_init() {
 void oled_display_print_web_server_address() {
   char str[32];
   snprintf(str, sizeof(str), "Web server: %s", WiFi.localIP().toString());
-  oled_display.clear();
   oled_display.drawString(0, 0, str);
-  oled_display.display();
 }
 
 void oled_display_print_proximity(uint8_t line_number) {
@@ -39,30 +37,30 @@ void oled_display_print_light(uint8_t line_number) {
 
 void oled_display_print_temperature_humidity(uint8_t line_number) {
   char str[32];
-  snprintf(str, sizeof(str), "T: %.1f°C  H: %.1f %%", Sensor_BME_get_temperature(), Sensor_BME_get_humidity());
+  snprintf(str, sizeof(str), "T: %.1f°C  H: %.1f %%", BME_data.temperature, BME_data.humidity);
   oled_display.drawString(0, line_number*12, str);
 }
 
 void oled_display_print_pressure(uint8_t line_number) {
   char str[32];
-  snprintf(str, sizeof(str), "Pressure: %.1f hPa", Sensor_BME_get_pressure());
+  snprintf(str, sizeof(str), "Pressure: %.1f hPa", BME_data.pressure);
   oled_display.drawString(0, line_number*12, str);
 }
 
 void oled_display_print_gas_resistance(uint8_t line_number) {
   char str[32];
-  snprintf(str, sizeof(str), "Gas: %.1f KOhms", Sensor_BME_get_gas());
+  snprintf(str, sizeof(str), "Gas: %.1f KOhms", BME_data.gas);
   oled_display.drawString(0, line_number*12, str);
 }
 
 void oled_display_print_altitude(uint8_t line_number) {
   char str[32];
-  snprintf(str, sizeof(str), "Altitude: %.1f m", Sensor_BME_get_altitude());
+  snprintf(str, sizeof(str), "Altitude: %.1f m", BME_data.altitude);
   oled_display.drawString(0, line_number*12, str);
 }
 
 void oled_display_print_hb(uint8_t line_number) {
   char str[32];
-  snprintf(str, sizeof(str), "Heartbeat: %.0f bpm", HB_data.print_value);
+  snprintf(str, sizeof(str), "Heartbeat: %.0f bpm", HB_data.bpm);
   oled_display.drawString(0, line_number*12, str);
 }

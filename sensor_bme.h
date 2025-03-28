@@ -12,12 +12,22 @@
 
 #define SEALEVELPRESSURE_HPA (1013.25)
 
+struct Sensor_BME_data{
+  float temperature;
+  float pressure;
+  float humidity;
+  float gas;
+  float altitude;
+};
+
+extern Sensor_BME_data BME_data;
+
 bool Sensor_BME_init();
 
-float Sensor_BME_get_temperature();
-float Sensor_BME_get_pressure();
-float Sensor_BME_get_humidity();
-float Sensor_BME_get_gas();
-float Sensor_BME_get_altitude();
+void Sensor_BME_get_temperature();
+void Sensor_BME_get_pressure();
+void Sensor_BME_get_humidity();
+void Sensor_BME_get_gas();
+void Sensor_BME_get_altitude();
 
 #endif //SENSOR_BME_H

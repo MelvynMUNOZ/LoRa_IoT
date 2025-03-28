@@ -22,13 +22,13 @@ bool web_server_init() {
     request->send(LittleFS, "/index.html", String(), false, web_server_process_data);
   });
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send_P(200, "text/plain", String(Sensor_BME_get_temperature()).c_str());
+    request->send_P(200, "text/plain", String(BME_data.temperature).c_str());
   });
   server.on("/humidity", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send_P(200, "text/plain", String(Sensor_BME_get_humidity()).c_str());
+    request->send_P(200, "text/plain", String(BME_data.humidity).c_str());
   });
   server.on("/pressure", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send_P(200, "text/plain", String(Sensor_BME_get_pressure()).c_str());
+    request->send_P(200, "text/plain", String(BME_data.pressure).c_str());
   });
   server.on("/winter", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(LittleFS, "/winter.jpg", "image/jpg");
@@ -70,13 +70,13 @@ void web_server_start() {
 
 String web_server_process_data(const String& var) {
   if (var == "TEMPERATURE") {
-    return String(Sensor_BME_get_temperature());
+    return String(BME_data.temperature);
   }
   else if (var == "HUMIDITY") {
-    return String(Sensor_BME_get_humidity());
+    return String(BME_data.humidity);
   }
   else if (var == "PRESSURE") {
-    return String(Sensor_BME_get_pressure());
+    return String(BME_data.pressure);
   }
   return String();
 }

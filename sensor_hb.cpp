@@ -57,8 +57,8 @@ void Sensor_HB_get_value(){
       HB_data.last_beat = millis(); 
       // Calculate the weighed average of heartbeat rate 
       // according to the three last beats 
-      HB_data.print_value = 60000. / (0.4 * HB_data.first + 0.3 * HB_data.second + 0.3 * HB_data.third); 
-      Serial.println(HB_data.print_value); 
+      HB_data.bpm = 60000. / (0.4 * HB_data.first + 0.3 * HB_data.second + 0.3 * HB_data.third); 
+      Serial.println(HB_data.bpm); 
       //Serial.print(''); 
       //*Sensor_HB_value = 60000. / (0.4 * first + 0.3 * second + 0.3 * third); 
       HB_data.third = HB_data.second; 
