@@ -35,25 +35,32 @@
   </header>
 <main>
   <p>
-    <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> Temperature: <span id="temperature" class="readings">%TEMPERATURE%</span>
+    <i class="fas fa-thermometer-half" style="color:#ff1b1b;"></i> Temperature: <span id="temperature" class="readings">%TEMPERATURE%</span>
     <sup>&deg;C</sup>
+  </p>
+  <p>
+    <i class="fas fa-sun" style="color:#ffbf00;"></i> Luminosity: <span id="luminosity" class="readings">%LUMINOSITY%</span>
+    <sup>lumen</sup>
   </p>
   <p>
     <i class="fas fa-tint" style="color:#00add6;"></i> Humidity: <span id="humidity" class="readings">%HUMIDITY%</span>
     <sup>&#37;</sup>
   </p>
   <p>
-    <i class="fas fa-angle-double-down" style="color:#e8c14d;"></i> Pressure: <span id="pressure" class="readings">%PRESSURE%</span>
-    <sup>hpa</sup>
+    <i class="fas fa-wind" style="color:#059e8a;"></i> Air Quality: <span id="airquality" class="readings">%AIRQUALITY%</span>
   </p>
-  
-  <!-- TODO: Other sensors values -->
+  <p>
+    <i class="fas fa-angle-double-down" style="color:#fcff5b;"></i> Pressure: <span id="pressure" class="readings">%PRESSURE%</span>
+    <sup>hPa</sup>
+  </p>
 </main>
 
 <script>
 setInterval(updateValues, 5000, "timestamp");
 setInterval(updateValues, 5000, "temperature");
+setInterval(updateValues, 5000, "luminosity");
 setInterval(updateValues, 5000, "humidity");
+setInterval(updateValues, 5000, "airquality");
 setInterval(updateValues, 5000, "pressure");
 
 function updateValues(value) {

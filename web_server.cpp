@@ -32,8 +32,14 @@ bool web_server_init() {
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/plain", String(BME_data.temperature).c_str());
   });
+  server.on("/luminosity", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send_P(200, "text/plain", String(tmg3993_data.lux).c_str());
+  });
   server.on("/humidity", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/plain", String(BME_data.humidity).c_str());
+  });
+  server.on("/airquality", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send_P(200, "text/plain", String(BME_data.gas).c_str());
   });
   server.on("/pressure", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/plain", String(BME_data.pressure).c_str());
@@ -105,8 +111,14 @@ String web_server_process_data(const String& var) {
   else if (var == "TEMPERATURE") {
     return String(BME_data.temperature);
   }
+  else if (var == "LUMINOSITY") {
+    return String(tmg3993_data.lux);
+  }
   else if (var == "HUMIDITY") {
     return String(BME_data.humidity);
+  }
+  else if (var == "AIRQUALITY") {
+    return String(BME_data.gas);
   }
   else if (var == "PRESSURE") {
     return String(BME_data.pressure);
