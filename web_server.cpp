@@ -40,7 +40,7 @@ bool web_server_init()
     request->send_P(200, "text/plain", String(bme680_data.humidity).c_str());
   });
   server.on("/airquality", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send_P(200, "text/plain", String(bme680_data.gas).c_str());
+    request->send_P(200, "text/plain", String(bme680_data.air_quality).c_str());
   });
   server.on("/pressure", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/plain", String(bme680_data.pressure).c_str());
@@ -127,7 +127,7 @@ String web_server_process_data(const String& var)
     return String(bme680_data.humidity);
   }
   else if (var == "AIRQUALITY") {
-    return String(bme680_data.gas);
+    return String(bme680_data.air_quality);
   }
   else if (var == "PRESSURE") {
     return String(bme680_data.pressure);

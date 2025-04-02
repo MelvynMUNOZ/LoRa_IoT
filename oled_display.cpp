@@ -66,10 +66,10 @@ void oled_display_print_pressure(uint8_t line_number)
   oled_display.drawString(0, line_number*12, str);
 }
 
-void oled_display_print_gas_resistance(uint8_t line_number)
+void oled_display_print_air_quality(uint8_t line_number)
 {
   char str[30];
-  snprintf(str, sizeof(str), "Gas: %.1f KOhms", bme680_data.gas);
+  snprintf(str, sizeof(str), "Air Quality: %.1f KOhms", bme680_data.air_quality);
   oled_display.drawString(0, line_number*12, str);
 }
 

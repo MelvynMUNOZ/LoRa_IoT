@@ -44,7 +44,7 @@ void loop()
     sensor_bme680_get_temperature();
     sensor_bme680_get_pressure();
     sensor_bme680_get_humidity();
-    sensor_bme680_get_gas();
+    sensor_bme680_get_air_quality();
     sensor_bme680_get_altitude();
     sensor_tmg3993_get_light();
     sensor_tmg3993_get_proximity();
@@ -54,7 +54,7 @@ void loop()
     oled_display_print_light(1);
     oled_display_print_temperature_humidity(2);
     oled_display_print_pressure(3);
-    oled_display_print_gas_resistance(4);
+    oled_display_print_air_quality(4);
     oled_display.display();
   }
 
