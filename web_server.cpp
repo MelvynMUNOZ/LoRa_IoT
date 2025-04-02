@@ -45,8 +45,8 @@ bool web_server_init()
   server.on("/pressure", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/plain", String(bme680_data.pressure).c_str());
   });
-  server.on("/winter", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send(LittleFS, "/winter.jpg", "image/jpg");
+  server.on("/wood", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send(LittleFS, "/wood.jpg", "image/jpg");
   });
 
   Serial.println("[WER_SERVER] Initialized.");
