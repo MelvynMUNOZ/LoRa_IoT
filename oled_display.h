@@ -13,6 +13,7 @@ extern SSD1306Wire oled_display;
 
 void oled_display_init();
 
+void oled_display_print_error();
 void oled_display_print_web_server_address();
 void oled_display_print_proximity(uint8_t line_number);
 void oled_display_print_light(uint8_t line_number);
