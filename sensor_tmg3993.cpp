@@ -4,7 +4,8 @@ TwoWire wire1 = TwoWire(1);
 TMG3993 tmg3993(wire1);
 data_tmg3993_t tmg3993_data;
 
-bool sensor_tmg3993_init() {
+bool sensor_tmg3993_init()
+{
   wire1.begin(I2C_SDA, I2C_SCL); // I2C Bus 1 for I2C devices, especially TMG3993
   wire1.setClock(500000);
 
@@ -22,7 +23,8 @@ bool sensor_tmg3993_init() {
   return true;
 }
 
-void sensor_tmg3993_poll_light_color() {
+void sensor_tmg3993_get_light()
+{
   if (tmg3993.getSTATUS() & STATUS_AVALID) {
     // Get RGB and Clear
     tmg3993.getRGBCRaw(&tmg3993_data.r, &tmg3993_data.g, &tmg3993_data.b, &tmg3993_data.c);
@@ -38,30 +40,10 @@ void sensor_tmg3993_poll_light_color() {
   }
 }
 
-void sensor_tmg3993_poll_proximity() {
+void sensor_tmg3993_get_proximity()
+{
   if (tmg3993.getSTATUS() & STATUS_PVALID) {
     // Get proximity
     tmg3993_data.prox = tmg3993.getProximityRaw();
   }
-}
-
-void sensor_tmg3993_print_light_color() {
-  Serial.print("RGBC: ");
-  Serial.print(tmg3993_data.r);
-  Serial.print("\t");
-  Serial.print(tmg3993_data.g);
-  Serial.print("\t");
-  Serial.print(tmg3993_data.b);
-  Serial.print("\t");
-  Serial.println(tmg3993_data.c);
-
-  Serial.print("LUX: ");
-  Serial.print(tmg3993_data.lux);
-  Serial.print("\tCCT: ");
-  Serial.println(tmg3993_data.cct);
-  Serial.println("----");
-}
-
-void sensor_tmg3993_print_proximity() {
-  
 }

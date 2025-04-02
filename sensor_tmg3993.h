@@ -19,13 +19,11 @@ struct data_tmg3993_t {
   uint8_t prox;
 };
 
-extern TMG3993 tmg3993;
 extern data_tmg3993_t tmg3993_data;
 
 bool sensor_tmg3993_init();
-void sensor_tmg3993_poll_light_color();
-void sensor_tmg3993_poll_proximity();
-void sensor_tmg3993_print_light_color();
-void sensor_tmg3993_print_proximity();
+
+void sensor_tmg3993_get_light();
+void sensor_tmg3993_get_proximity();
 
 #endif // LORA_IOT_SENSOR_TMG3993_H
