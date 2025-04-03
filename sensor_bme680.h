@@ -24,10 +24,5 @@ extern data_bme680_t bme680_data;
 
 bool sensor_bme680_init();
 void sensor_bme680_get_all_data();
-// void sensor_bme680_get_temperature();
-// void sensor_bme680_get_pressure();
-// void sensor_bme680_get_humidity();
-// void sensor_bme680_get_air_quality();
-// void sensor_bme680_get_altitude();
 
 #endif // LORA_IOT_SENSOR_BME680_H

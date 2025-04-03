@@ -10,6 +10,8 @@ void led_init()
 
 void led_red(bool up){
   if(up){
+    digitalWrite(GPIO_YELLOW_LED, LOW);
+    digitalWrite(GPIO_GREEN_LED, LOW);
     digitalWrite(GPIO_RED_LED, HIGH);
   }else{
     digitalWrite(GPIO_RED_LED, LOW);
@@ -18,6 +20,8 @@ void led_red(bool up){
 
 void led_yellow(bool up){
   if(up){
+    digitalWrite(GPIO_RED_LED, LOW);
+    digitalWrite(GPIO_GREEN_LED, LOW);
     digitalWrite(GPIO_YELLOW_LED, HIGH);
   }else{
     digitalWrite(GPIO_YELLOW_LED, LOW);
@@ -26,6 +30,8 @@ void led_yellow(bool up){
 
 void led_green(bool up){
   if(up){
+    digitalWrite(GPIO_RED_LED, LOW);
+    digitalWrite(GPIO_YELLOW_LED, LOW);
     digitalWrite(GPIO_GREEN_LED, HIGH);
   }else{
     digitalWrite(GPIO_GREEN_LED, LOW);
