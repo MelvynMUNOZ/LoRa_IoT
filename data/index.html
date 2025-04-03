@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
-  <title>ESP32 LoRa32 V3 - Web Server</title>
+  <title>smart FlowerPot - Home</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <style>
     body {
@@ -16,7 +16,7 @@
       padding-top: 5vh;
       padding-bottom: 5vh;
       overflow: hidden;
-      background-image: url(winter);
+      background-image: url(wood);
       background-size: cover;
       color: white;
     }
@@ -30,10 +30,13 @@
 </head>
 <body>
   <header>
-    <h2>ESP32 LoRa32 V3</h2>
-    <p><strong>Last updated:<br/><span id="timestamp">%TIMESTAMP%</span></strong></p>
+    <h2>Smart FlowerPot</h2>
+    <p><strong>Lastest update:<br/><span id="timestamp">%TIMESTAMP%</span></strong></p>
   </header>
 <main>
+  <h2>
+    <i class="fas fa-heart" style="color:#ff00c8;"></i> Health: <span id="health" class="readings">%HEALTH%</span>
+  </h2>
   <p>
     <i class="fas fa-thermometer-half" style="color:#ff1b1b;"></i> Temperature: <span id="temperature" class="readings">%TEMPERATURE%</span>
     <sup>&deg;C</sup>
@@ -50,13 +53,14 @@
     <i class="fas fa-wind" style="color:#059e8a;"></i> Air Quality: <span id="airquality" class="readings">%AIRQUALITY%</span>
   </p>
   <p>
-    <i class="fas fa-angle-double-down" style="color:#fcff5b;"></i> Pressure: <span id="pressure" class="readings">%PRESSURE%</span>
+    <i class="fas fa-angle-double-down" style="color:#854816;"></i> Pressure: <span id="pressure" class="readings">%PRESSURE%</span>
     <sup>hPa</sup>
   </p>
 </main>
 
 <script>
 setInterval(updateValues, 5000, "timestamp");
+setInterval(updateValues, 5000, "health");
 setInterval(updateValues, 5000, "temperature");
 setInterval(updateValues, 5000, "luminosity");
 setInterval(updateValues, 5000, "humidity");

@@ -1,7 +1,6 @@
 #include "web_server.h"
 #include "oled_display.h"
-#include "sensor_tmg3993.h"
-#include "sensor_bme680.h"
+#include "plant_health.h"
 
 const char *wifi_ssid = "Vinh Diesel sans diesel";
 const char *wifi_passwd = "..........";
@@ -18,6 +17,7 @@ bool web_server_init()
 {
   web_server_connect_wifi();
 
+  // Initialize file system
   if (LittleFS.begin() == false) {
     Serial.println("[WEB_SERVER] Failed to init LittleFS.");
     return false;
@@ -30,6 +30,9 @@ bool web_server_init()
   server.on("/timestamp", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/plain", timestamp.c_str());
   });
+  server.on("/health", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send_P(200, "text/plain", String(indicators.health_state).c_str());
+  });
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/plain", String(bme680_data.temperature).c_str());
   });
@@ -40,13 +43,13 @@ bool web_server_init()
     request->send_P(200, "text/plain", String(bme680_data.humidity).c_str());
   });
   server.on("/airquality", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send_P(200, "text/plain", String(bme680_data.air_quality).c_str());
+    request->send_P(200, "text/plain", sensor_bme680_air_quality_state().c_str()); 
   });
   server.on("/pressure", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/plain", String(bme680_data.pressure).c_str());
   });
-  server.on("/winter", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send(LittleFS, "/winter.jpg", "image/jpg");
+  server.on("/wood", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send(LittleFS, "/wood.jpg", "image/jpg");
   });
 
   Serial.println("[WER_SERVER] Initialized.");
@@ -114,8 +117,12 @@ void web_server_get_timestamp()
 
 String web_server_process_data(const String& var)
 {
+  // Transform placeholder text into actual data
   if (var == "TIMESTAMP") {
     return timestamp;
+  }
+  else if (var == "HEALTH") {
+    return String(indicators.health_state);
   }
   else if (var == "TEMPERATURE") {
     return String(bme680_data.temperature);
@@ -127,7 +134,7 @@ String web_server_process_data(const String& var)
     return String(bme680_data.humidity);
   }
   else if (var == "AIRQUALITY") {
-    return String(bme680_data.air_quality);
+    return sensor_bme680_air_quality_state();
   }
   else if (var == "PRESSURE") {
     return String(bme680_data.pressure);

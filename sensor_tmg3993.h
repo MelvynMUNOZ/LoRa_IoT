@@ -5,6 +5,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "Seeed_TMG3993.h"
+#include "esp_attr.h"
 
 #define I2C_SDA 41
 #define I2C_SCL 42
@@ -19,10 +20,10 @@ struct data_tmg3993_t {
   uint8_t prox;
 };
 
-extern data_tmg3993_t tmg3993_data;
+extern RTC_DATA_ATTR data_tmg3993_t tmg3993_data;
 
 bool sensor_tmg3993_init();
-
+bool sensor_tmg3993_is_connected();
 void sensor_tmg3993_get_light();
 void sensor_tmg3993_get_proximity();
 

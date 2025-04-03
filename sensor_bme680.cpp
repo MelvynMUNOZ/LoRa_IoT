@@ -1,7 +1,8 @@
 #include "sensor_bme680.h"
+#include "plant_health.h"
 
 Adafruit_BME680 bme(BME_CS, BME_MOSI, BME_MISO, BME_SCK);
-data_bme680_t bme680_data;
+RTC_DATA_ATTR data_bme680_t bme680_data;
 
 bool sensor_bme680_init()
 {
@@ -21,67 +22,39 @@ bool sensor_bme680_init()
   return true;
 }
 
-void sensor_bme680_get_temperature()
+bool sensor_bme680_is_connected()
 {
-  if (!bme.performReading()) {
-    Serial.println("[BME680] Failed to read temperature");
-  }
-  else {
-    bme680_data.temperature = bme.temperature;
-    // Serial.print("Température: ");
-    // Serial.print(temperature);
-    // Serial.println(" °C");
-  }
+  return bme.begin();
 }
 
-void sensor_bme680_get_pressure()
+void sensor_bme680_get_all_data()
 {
-  if (!bme.performReading()) {
-    Serial.println("[BME680] Failed to read pressure");
+  if (sensor_bme680_is_connected()) {
+    if (!bme.performReading()) {
+      Serial.println("[BME680] Failed to read data");
+    }
+    else {
+      bme680_data.temperature = bme.temperature;                     //°C
+      bme680_data.pressure = bme.pressure / 100.0;                   //ATTENTION hPa
+      bme680_data.humidity = bme.humidity;                           //%
+      bme680_data.air_quality = bme.gas_resistance  / 1000.0;        //ATTENTION : KOhms
+      bme680_data.altitude = bme.readAltitude(SEALEVELPRESSURE_HPA); //m
+    }
   }
   else {
-    bme680_data.pressure = bme.pressure / 100.0; //ATTENTION hPa
-    // Serial.print("Pressure = ");
-    // Serial.print(pressure);
-    // Serial.println(" hPa");
+    Serial.println("[BME680] Device not connected. Check wiring.");
   }
 }
-
-void sensor_bme680_get_humidity()
+String sensor_bme680_air_quality_state()
 {
-  if (!bme.performReading()) {
-    Serial.println("[BME680] Failed to read humidity");
+  if (bme680_data.air_quality > 0 && bme680_data.air_quality <= AIR_GOOD) {
+    return String("Bad");
   }
-  else {
-    bme680_data.humidity = bme.humidity; //%
-    // Serial.print("Humidity = ");
-    // Serial.print(humidity);
-    // Serial.println(" %");
+  else if (bme680_data.air_quality > AIR_GOOD && bme680_data.air_quality <= AIR_VERY_GOOD) {
+    return String("Good");
   }
-}
-
-void sensor_bme680_get_air_quality()
-{
-  if (!bme.performReading()) {
-    Serial.println("[BME680] Failed to read air quality");
+  else if (bme680_data.air_quality > AIR_VERY_GOOD) {
+    return String("Very Good");
   }
-  else {
-    bme680_data.air_quality = bme.gas_resistance  / 1000.0; //ATTENTION : KOhms
-    // Serial.print("Gas = ");
-    // Serial.print(gas_resistance);
-    // Serial.println(" KOhms");
-  }
-}
-
-void sensor_bme680_get_altitude()
-{
-  if (!bme.performReading()) {
-    Serial.println("[BME680] Failed to read altitude");
-  }
-  else {
-    bme680_data.altitude = bme.readAltitude(SEALEVELPRESSURE_HPA); //m
-    // Serial.print("Approx. Altitude = ");
-    // Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
-    // Serial.println(" m");
-  }
+  return String(bme680_data.air_quality);
 }

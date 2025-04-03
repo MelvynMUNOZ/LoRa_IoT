@@ -4,6 +4,7 @@
 #include <Adafruit_BME680.h>
 #include <Adafruit_Sensor.h>
 #include <SPI.h>
+#include "esp_attr.h"
 
 #define BME_SCK 35
 #define BME_MOSI 34 //SDA
@@ -20,14 +21,11 @@ struct data_bme680_t {
   float altitude;
 };
 
-extern data_bme680_t bme680_data;
+extern RTC_DATA_ATTR data_bme680_t bme680_data;
 
 bool sensor_bme680_init();
-
-void sensor_bme680_get_temperature();
-void sensor_bme680_get_pressure();
-void sensor_bme680_get_humidity();
-void sensor_bme680_get_air_quality();
-void sensor_bme680_get_altitude();
+bool sensor_bme680_is_connected();
+void sensor_bme680_get_all_data();
+String sensor_bme680_air_quality_state();
 
 #endif // LORA_IOT_SENSOR_BME680_H

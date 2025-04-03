@@ -1,63 +1,51 @@
+#include "esp_sleep.h"
 #include "oled_display.h"
 #include "web_server.h"
-#include "sensor_tmg3993.h"
-#include "sensor_bme680.h"
-//#include "sensor_hb.h"
-#include "led.h"
+#include "plant_health.h"
 
-unsigned long previousTempMillis = 0;
-const long tempInterval = 1000; // Intervalle de récupération des capteurs (en millisecondes)
+#define US_TO_S_FACTOR 1000000ULL /* Conversion factor for micro seconds to seconds */
+#define TIME_TO_SLEEP 5          /* Time ESP32 will go to sleep (in seconds) */
+
+bool sensors_ready = false;
 
 void setup()
 {
   Serial.begin(115200);
 
+  // Check deepsleep wakeup
+  // if (esp_sleep_get_wakeup_cause() == ESP_SLEEP_WAKEUP_TIMER) {
+  //   Serial.println("Réveil après Deep Sleep");
+  // }
+  // else {
+  //   Serial.println("Démarrage initial");
+  // }
+
+  // Init modules and sensors
   led_init();
   oled_display_init();
   if (web_server_init()) {
     web_server_start();
   }
-
-  bool bme_ready = sensor_bme680_init();
-  bool tmg3993_ready = sensor_tmg3993_init();
-  //Sensor_HB_init();
-
-  if (bme_ready == false || tmg3993_ready == false) {
-    Serial.println("Failed to initialize devices. Waiting...");
+  sensors_ready = plant_health_sensors_init();
+  if (sensors_ready == false) {
     oled_display.clear();
     oled_display_print_error();
     oled_display.display();
-    for (;;);
   }
+
+  // Configure deepsleep timer
+  // esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * US_TO_S_FACTOR);
 }
 
 void loop()
 {
-  unsigned long currentMillis = millis();
-
-  // Lire les capteurs toutes les 1s
-  if (currentMillis - previousTempMillis >= tempInterval) {
-    previousTempMillis = currentMillis;
-
+  if (sensors_ready) {
     web_server_get_timestamp();
-
-    sensor_bme680_get_temperature();
-    sensor_bme680_get_pressure();
-    sensor_bme680_get_humidity();
-    sensor_bme680_get_air_quality();
-    sensor_bme680_get_altitude();
-    sensor_tmg3993_get_light();
-    sensor_tmg3993_get_proximity();
-
-    oled_display.clear();
-    oled_display_print_web_server_address();
-    oled_display_print_light(1);
-    oled_display_print_temperature_humidity(2);
-    oled_display_print_pressure(3);
-    oled_display_print_air_quality(4);
-    oled_display.display();
+    plant_health_monitor();
   }
+  delay(2000);
 
-  //Recupere en boucle les bpm (ne les affiches que si il a plusieurs battements à la suite)
-  // Sensor_HB_get_value();
+  // Start deepsleep
+  // Serial.println("Going to sleep now");
+  // esp_deep_sleep_start();
 }
