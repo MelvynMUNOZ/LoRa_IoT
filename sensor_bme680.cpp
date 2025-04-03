@@ -21,67 +21,80 @@ bool sensor_bme680_init()
   return true;
 }
 
-void sensor_bme680_get_temperature()
-{
+void sensor_bme680_get_all_data(){
   if (!bme.performReading()) {
-    Serial.println("[BME680] Failed to read temperature");
+    Serial.println("[BME680] Failed to read data");
   }
   else {
-    bme680_data.temperature = bme.temperature;
-    // Serial.print("Température: ");
-    // Serial.print(temperature);
-    // Serial.println(" °C");
-  }
-}
-
-void sensor_bme680_get_pressure()
-{
-  if (!bme.performReading()) {
-    Serial.println("[BME680] Failed to read pressure");
-  }
-  else {
-    bme680_data.pressure = bme.pressure / 100.0; //ATTENTION hPa
-    // Serial.print("Pressure = ");
-    // Serial.print(pressure);
-    // Serial.println(" hPa");
-  }
-}
-
-void sensor_bme680_get_humidity()
-{
-  if (!bme.performReading()) {
-    Serial.println("[BME680] Failed to read humidity");
-  }
-  else {
-    bme680_data.humidity = bme.humidity; //%
-    // Serial.print("Humidity = ");
-    // Serial.print(humidity);
-    // Serial.println(" %");
-  }
-}
-
-void sensor_bme680_get_air_quality()
-{
-  if (!bme.performReading()) {
-    Serial.println("[BME680] Failed to read air quality");
-  }
-  else {
-    bme680_data.air_quality = bme.gas_resistance  / 1000.0; //ATTENTION : KOhms
-    // Serial.print("Gas = ");
-    // Serial.print(gas_resistance);
-    // Serial.println(" KOhms");
-  }
-}
-
-void sensor_bme680_get_altitude()
-{
-  if (!bme.performReading()) {
-    Serial.println("[BME680] Failed to read altitude");
-  }
-  else {
+    bme680_data.temperature = bme.temperature;                     //°C
+    bme680_data.pressure = bme.pressure / 100.0;                   //ATTENTION hPa
+    bme680_data.humidity = bme.humidity;                           //%
+    bme680_data.air_quality = bme.gas_resistance  / 1000.0;        //ATTENTION : KOhms
     bme680_data.altitude = bme.readAltitude(SEALEVELPRESSURE_HPA); //m
-    // Serial.print("Approx. Altitude = ");
-    // Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
-    // Serial.println(" m");
   }
 }
+
+// void sensor_bme680_get_temperature()
+// {
+//   if (!bme.performReading()) {
+//     Serial.println("[BME680] Failed to read temperature");
+//   }
+//   else {
+//     bme680_data.temperature = bme.temperature;
+//     // Serial.print("Température: ");
+//     // Serial.print(temperature);
+//     // Serial.println(" °C");
+//   }
+// }
+
+// void sensor_bme680_get_pressure()
+// {
+//   if (!bme.performReading()) {
+//     Serial.println("[BME680] Failed to read pressure");
+//   }
+//   else {
+//     bme680_data.pressure = bme.pressure / 100.0; //ATTENTION hPa
+//     // Serial.print("Pressure = ");
+//     // Serial.print(pressure);
+//     // Serial.println(" hPa");
+//   }
+// }
+
+// void sensor_bme680_get_humidity()
+// {
+//   if (!bme.performReading()) {
+//     Serial.println("[BME680] Failed to read humidity");
+//   }
+//   else {
+//     bme680_data.humidity = bme.humidity; //%
+//     // Serial.print("Humidity = ");
+//     // Serial.print(humidity);
+//     // Serial.println(" %");
+//   }
+// }
+
+// void sensor_bme680_get_air_quality()
+// {
+//   if (!bme.performReading()) {
+//     Serial.println("[BME680] Failed to read air quality");
+//   }
+//   else {
+//     bme680_data.air_quality = bme.gas_resistance  / 1000.0; //ATTENTION : KOhms
+//     // Serial.print("Gas = ");
+//     // Serial.print(gas_resistance);
+//     // Serial.println(" KOhms");
+//   }
+// }
+
+// void sensor_bme680_get_altitude()
+// {
+//   if (!bme.performReading()) {
+//     Serial.println("[BME680] Failed to read altitude");
+//   }
+//   else {
+//     bme680_data.altitude = bme.readAltitude(SEALEVELPRESSURE_HPA); //m
+//     // Serial.print("Approx. Altitude = ");
+//     // Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
+//     // Serial.println(" m");
+//   }
+// }

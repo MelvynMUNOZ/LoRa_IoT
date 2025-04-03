@@ -18,6 +18,12 @@ bool plant_health_sensors_init()
   return true;
 }
 
+char* plant_health_indicator()
+{
+
+
+}
+
 void plant_health_monitor()
 {
   unsigned long currentMillis = millis();
@@ -26,11 +32,12 @@ void plant_health_monitor()
   if (currentMillis - previousTempMillis >= tempInterval) {
     previousTempMillis = currentMillis;
 
-    sensor_bme680_get_temperature();
-    sensor_bme680_get_pressure();
-    sensor_bme680_get_humidity();
-    sensor_bme680_get_air_quality();
-    sensor_bme680_get_altitude();
+    // sensor_bme680_get_temperature();
+    // sensor_bme680_get_pressure();
+    // sensor_bme680_get_humidity();
+    // sensor_bme680_get_air_quality();
+    // sensor_bme680_get_altitude();
+    sensor_bme680_get_all_data();
     sensor_tmg3993_get_light();
     sensor_tmg3993_get_proximity();
 
@@ -41,6 +48,10 @@ void plant_health_monitor()
     oled_display_print_pressure(3);
     oled_display_print_air_quality(4);
     oled_display.display();
+
+    //plant_health_indicator();
+
+
   }
 
   //Recupere en boucle les bpm (ne les affiches que si il a plusieurs battements à la suite)
