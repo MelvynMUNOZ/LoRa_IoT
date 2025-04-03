@@ -1,7 +1,6 @@
 #include "web_server.h"
 #include "oled_display.h"
-#include "sensor_tmg3993.h"
-#include "sensor_bme680.h"
+#include "plant_health.h"
 
 const char *wifi_ssid = "Vinh Diesel sans diesel";
 const char *wifi_passwd = "..........";
@@ -40,7 +39,7 @@ bool web_server_init()
     request->send_P(200, "text/plain", String(bme680_data.humidity).c_str());
   });
   server.on("/airquality", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send_P(200, "text/plain", String(bme680_data.air_quality).c_str());
+    request->send_P(200, "text/plain", sensor_bme680_air_quality_state().c_str()); 
   });
   server.on("/pressure", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/plain", String(bme680_data.pressure).c_str());
@@ -127,7 +126,7 @@ String web_server_process_data(const String& var)
     return String(bme680_data.humidity);
   }
   else if (var == "AIRQUALITY") {
-    return String(bme680_data.air_quality);
+    return sensor_bme680_air_quality_state();
   }
   else if (var == "PRESSURE") {
     return String(bme680_data.pressure);
