@@ -24,11 +24,8 @@ struct data_bme680_t {
 extern RTC_DATA_ATTR data_bme680_t bme680_data;
 
 bool sensor_bme680_init();
-
 bool sensor_bme680_is_connected();
-
 void sensor_bme680_get_all_data();
-
 String sensor_bme680_air_quality_state();
 
 #endif // LORA_IOT_SENSOR_BME680_H

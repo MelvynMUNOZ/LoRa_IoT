@@ -17,6 +17,7 @@ bool web_server_init()
 {
   web_server_connect_wifi();
 
+  // Initialize file system
   if (LittleFS.begin() == false) {
     Serial.println("[WEB_SERVER] Failed to init LittleFS.");
     return false;
@@ -113,6 +114,7 @@ void web_server_get_timestamp()
 
 String web_server_process_data(const String& var)
 {
+  // Transform placeholder text into actual data
   if (var == "TIMESTAMP") {
     return timestamp;
   }

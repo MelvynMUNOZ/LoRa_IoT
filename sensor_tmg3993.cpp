@@ -14,6 +14,7 @@ bool sensor_tmg3993_init()
     return false;
   }
 
+  // Sensor configuration
   tmg3993.setADCIntegrationTime(0xdb);
   tmg3993.setupRecommendedConfigForProximity();
   tmg3993.enableEngines(ENABLE_PON | ENABLE_PEN | ENABLE_PIEN | ENABLE_AEN | ENABLE_AIEN);

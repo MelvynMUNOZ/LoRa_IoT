@@ -45,6 +45,7 @@ void loop()
   }
   delay(2000);
 
+  // Start deepsleep
   // Serial.println("Going to sleep now");
   // esp_deep_sleep_start();
 }

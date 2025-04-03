@@ -29,8 +29,7 @@ bool sensor_bme680_is_connected()
 
 void sensor_bme680_get_all_data()
 {
-  if (sensor_bme680_is_connected())
-  {
+  if (sensor_bme680_is_connected()) {
     if (!bme.performReading()) {
       Serial.println("[BME680] Failed to read data");
     }
