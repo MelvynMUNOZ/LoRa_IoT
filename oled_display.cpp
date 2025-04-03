@@ -6,7 +6,8 @@
 
 SSD1306Wire oled_display(OLED_ADDR, OLED_FREQ, SDA_OLED, SCL_OLED, GEOMETRY_128_64, RST_OLED);
 
-void oled_display_init() {
+void oled_display_init()
+{
   Wire.begin(SDA_OLED, SCL_OLED); // I2C Bus 0 for OLED display
 
   if (oled_display.init() == false) {
@@ -33,6 +34,7 @@ void oled_display_print_web_server_address()
     snprintf(str, sizeof(str), "Server: %s", WiFi.localIP().toString());
   }
   else {
+    Serial.println("[WEB_SERVER] Connection lost.");
     snprintf(str, sizeof(str), "Server: Not connected");
   }
   oled_display.drawString(0, 0, str);
