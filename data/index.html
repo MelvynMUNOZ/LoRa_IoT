@@ -34,7 +34,9 @@
     <p><strong>Lastest update:<br/><span id="timestamp">%TIMESTAMP%</span></strong></p>
   </header>
 <main>
-  <!-- TODO: Add Flower/Plant health state -->
+  <h2>
+    <i class="fas fa-heart" style="color:#ff00c8;"></i> Health: <span id="health" class="readings">%HEALTH%</span>
+  </h2>
   <p>
     <i class="fas fa-thermometer-half" style="color:#ff1b1b;"></i> Temperature: <span id="temperature" class="readings">%TEMPERATURE%</span>
     <sup>&deg;C</sup>
@@ -51,13 +53,14 @@
     <i class="fas fa-wind" style="color:#059e8a;"></i> Air Quality: <span id="airquality" class="readings">%AIRQUALITY%</span>
   </p>
   <p>
-    <i class="fas fa-angle-double-down" style="color:#fcff5b;"></i> Pressure: <span id="pressure" class="readings">%PRESSURE%</span>
+    <i class="fas fa-angle-double-down" style="color:#854816;"></i> Pressure: <span id="pressure" class="readings">%PRESSURE%</span>
     <sup>hPa</sup>
   </p>
 </main>
 
 <script>
 setInterval(updateValues, 5000, "timestamp");
+setInterval(updateValues, 5000, "health");
 setInterval(updateValues, 5000, "temperature");
 setInterval(updateValues, 5000, "luminosity");
 setInterval(updateValues, 5000, "humidity");

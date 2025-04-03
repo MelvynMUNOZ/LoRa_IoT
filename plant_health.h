@@ -36,7 +36,7 @@ enum indic_type {
 
 struct indic_t {
   int health;
-  char* health_state;
+  char *health_state;
   int humidity;
   int temperature;
   int air_quality;

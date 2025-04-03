@@ -30,6 +30,9 @@ bool web_server_init()
   server.on("/timestamp", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/plain", timestamp.c_str());
   });
+  server.on("/health", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send_P(200, "text/plain", String(indicators.health_state).c_str());
+  });
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send_P(200, "text/plain", String(bme680_data.temperature).c_str());
   });
@@ -117,6 +120,9 @@ String web_server_process_data(const String& var)
   // Transform placeholder text into actual data
   if (var == "TIMESTAMP") {
     return timestamp;
+  }
+  else if (var == "HEALTH") {
+    return String(indicators.health_state);
   }
   else if (var == "TEMPERATURE") {
     return String(bme680_data.temperature);
