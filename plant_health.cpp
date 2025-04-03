@@ -1,4 +1,5 @@
 #include "plant_health.h"
+#include "oled_display.h"
 
 unsigned long previousTempMillis = 0;
 const long tempInterval = 1000; // Intervalle de récupération des capteurs (en millisecondes)
@@ -13,7 +14,7 @@ bool plant_health_sensors_init()
     Serial.println("Failed to initialize devices. Waiting...");
     return false;
   }
-  
+
   return true;
 }
 
