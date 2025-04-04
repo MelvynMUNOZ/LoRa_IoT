@@ -1,13 +1,5 @@
 # LoRa_IoT
 
-GPIO_LED = 6
+Projet Smart FlowerPot
 
-HB_PIN = 7
-
-I2C_SDA = 41
-I2C_SCL = 42
-
-BME_SCK = 35
-BME_MOSI = 34
-BME_MISO = 37
-BME_CS = 33
+Avant de flasher le projet sur la carte Lora, ajoutez les librairies .zip du dossier "lib" dans Arduino IDE.
